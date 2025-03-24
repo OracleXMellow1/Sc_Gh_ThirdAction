@@ -1,0 +1,32 @@
+# This is the name of your workflow as it appears in the GitHub Actions tab.
+name: Test Project
+
+# Trigger the workflow on pushes to the main branch.
+on:
+  push:
+    branches:
+      - main
+
+jobs:
+  test:
+    # This job runs on GitHub's hosted Ubuntu runner.
+    runs-on: ubuntu-latest
+
+    steps:
+      # Step 1: Check out your repository code so subsequent steps can access it.
+      - name: Get code
+        uses: actions/checkout@v3
+
+      # Step 2: Set up Node.js on the runner.
+      - name: Install NodeJS
+        uses: actions/setup-node@v3
+        with:
+          node-version: 18
+
+      # Step 3: Install project dependencies using 'npm ci'.
+      - name: Install dependencies
+        run: npm ci
+
+      # Step 4: Run your test suite with 'npm test'.
+      - name: Run tests
+        run: npm test
